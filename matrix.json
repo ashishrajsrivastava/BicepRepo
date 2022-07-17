@@ -1,0 +1,4 @@
+{
+  "Clusters": ['india','usa'],
+  "tenants": ['public', 'china']
+}
