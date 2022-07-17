@@ -6,3 +6,5 @@ This is my bicep demo session
 Git
 
 Some changes by someone else
+
+change from nirajfeature branch...
