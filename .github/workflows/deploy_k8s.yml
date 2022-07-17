@@ -33,4 +33,4 @@ jobs:
           # Specify the script here
           inlineScript: |
            az account set --subscription ${{secrets.AZ_ADP_SUB2_ID}}
-           az deployment sub create --location eastus --template-file '.\main.bicep' --parameters @parameters.json --name 'az-k8s-deploy-'$(date +"%d-%b-%Y")
+           az deployment sub create --location eastus --template-file '.\k8s\main.bicep' --parameters '@.\k8s\parameters.json' --name 'az-k8s-deploy-'$(date +"%d-%b-%Y")
