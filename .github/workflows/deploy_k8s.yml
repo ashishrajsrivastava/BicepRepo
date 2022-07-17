@@ -29,5 +29,5 @@ jobs:
         with:
           # Specify the script here
           inlineScript: |
-           az show account
+           az account show
            az account set --subscription ${{secrets.AZ_ADP_SUB2_ID}}
