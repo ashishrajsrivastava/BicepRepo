@@ -26,9 +26,9 @@ jobs:
           content="${content//$'\n'/'%0A'}"
           content="${content//$'\r'/'%0D'}"
           # end of optional handling for multi line json
-          echo "::set-output name=metrixJson::$content"
+          echo "::set-output name=matrixJson::$content"
       - run : |
-          echo "${{fromJson(steps.read-matrix.outputs.metrixJson).clusters}}"
+          echo "${{fromJson(steps.read-matrix.outputs.matrixJson).clusters}}"
   
   
   matrixjob:
@@ -37,7 +37,7 @@ jobs:
     needs: [read-matrix]
     strategy:
       matrix:
-        cluster: ${{ fromJson(needs.read-matrix.outputs.metrixJson).clusters }}
+        cluster: ${{ fromJson(needs.read-matrix.outputs.matrixJson).clusters }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
