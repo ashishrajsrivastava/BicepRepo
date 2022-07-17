@@ -21,7 +21,7 @@ jobs:
       - id: read-matrix
         run : |
           content=`cat ./matrix.json`
-          echo "::set-output name=matrixJson::${JSON//'%'/'%25'}"
+          echo "::set-output name=matrixJson::${content//'%'/'%25'}"
       - run : |
           echo "${{ fromJson(steps.read-matrix.outputs.matrixJson).clusters }}"
   
