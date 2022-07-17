@@ -1,8 +1,18 @@
+param ClustersConfig object = {
+  clusters: [
+    {
+      name: ''
+      location: ''
+    }
+  ]
+}
+
+
 targetScope = 'subscription'
 
 resource demoRG 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: 'aks-demo-rg'
-  location: 'eastus'
+  name: ClustersConfig.name
+  location: ClustersConfig.location
 }
 
 module aksDemo 'modules/aks/aks.bicep' = {
