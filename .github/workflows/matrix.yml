@@ -22,6 +22,8 @@ jobs:
         run : |
           content=`cat ./matrix.json`
           echo "::set-output name=matrixJson::${JSON//'%'/'%25'}"
+      - run : |
+          echo "${{ fromJson(steps.read-matrix.outputs.matrixJson).clusters }}"
   
   
   matrixjob:
@@ -30,7 +32,7 @@ jobs:
     needs: [read-matrix]
     strategy:
       matrix:
-        cluster: ${{fromJson(needs.read-matrix.outputs.matrixJson).Clusters}}
+        cluster: ${{ fromJson(needs.read-matrix.outputs.matrixJson).Clusters }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
