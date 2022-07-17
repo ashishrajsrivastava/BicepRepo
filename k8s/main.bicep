@@ -11,7 +11,7 @@ param ClustersConfig object = {
 targetScope = 'subscription'
 
 resource demoRG 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: ClustersConfig.name
+  name: '${ClustersConfig.clusters[0].name}-rg'
   location: ClustersConfig.location
 }
 
