@@ -28,7 +28,7 @@ jobs:
           # end of optional handling for multi line json
           echo "::set-output name=metrixJson::$content"
       - run : |
-          echo "${{fromJson(steps.read-matrix.outputs.metrixJson)}}"
+          echo "${{fromJson(steps.read-matrix.outputs.metrixJson).clusters}}"
   
   
   matrixjob:
