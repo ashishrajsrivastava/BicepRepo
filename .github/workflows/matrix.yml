@@ -21,13 +21,12 @@ jobs:
       - id: read-matrix
         run : |
           content=`cat ./matrix.json`
-          echo "::set-output name=matrixJson::${content//'%'/'%25'}"
           # the following lines are only required for multi line json
-         # content="${content//'%'/'%25'}"
-         # content="${content//$'\n'/'%0A'}"
-         # content="${content//$'\r'/'%0D'}"
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
           # end of optional handling for multi line json
-         # echo "::set-output name=matrixJson::$content"
+          echo "::set-output name=matrixJson::$content"
       - run : |
           echo "${{fromJson(steps.read-matrix.outputs.matrixJson).clusters}}"
   
