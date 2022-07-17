@@ -19,8 +19,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Azure Login
+        uses: Azure/login@v1.4.5
+        with:
+          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Azure CLI Action
+        uses: Azure/cli@v1
+        with:
+          # Specify the script here
+          inlineScript: |
+           az show account
+           az account set --subscription ${{secrets.AZ_ADP_SUB2_ID}}
