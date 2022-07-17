@@ -1,7 +1,9 @@
 param sshKeyData string
+param clusterName string
+param location string
 resource aksDemo 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' = {
-  name: 'adp-aks-demo'
-  location: 'eastus'
+  name: clusterName
+  location: location
   sku: {
     name: 'Basic'
     tier:'Free'
