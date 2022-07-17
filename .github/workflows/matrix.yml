@@ -32,7 +32,7 @@ jobs:
     needs: [read-matrix]
     strategy:
       matrix:
-        cluster: ${{ fromJson(needs.read-matrix.outputs.matrixJson).Clusters }}
+        cluster: ${{ fromJson(needs.read-matrix.outputs.matrixJson).clusters }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
