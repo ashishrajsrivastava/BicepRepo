@@ -1,5 +1,6 @@
 param sshKeyData string
 param clusterName string
+param logAnalyticsWorkspaceID string
 param location string
 resource aksDemo 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' = {
   name: clusterName
@@ -26,6 +27,14 @@ resource aksDemo 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'
    ]
    networkProfile:{
     networkPlugin:'azure'
+   }
+   addonProfiles: {
+    omsagent: {
+        enabled: true
+        config: {
+          logAnalyticsWorkspaceResourceID: logAnalyticsWorkspaceID
+        }
+      }
    }
    linuxProfile:{
     adminUsername:'adminuser'
