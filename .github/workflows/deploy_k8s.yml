@@ -12,7 +12,7 @@ on:
       description: 'Cluster Name'
       required: true
       default: 'aks-demo-01'
-    location:
+    clusterLocation:
       description: 'azure region'
       required: true
       default: 'eastus'
