@@ -36,10 +36,20 @@ jobs:
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{secrets.AZURE_CREDENTIALS}}
-      - name: Azure CLI Action
+      - name: Deploy bicep
         uses: Azure/cli@v1
         with:
           # Specify the script here
           inlineScript: |
            az account set --subscription ${{secrets.AZ_ADP_SUB2_ID}}
-           az deployment sub create --location eastus --template-file '.\k8s\main.bicep' --parameters clusterName=${{ inputs.clusterName }} clusterLocation=${{ inputs.clusterLocation }}  --name 'az-k8s-deploy-'$(date +"%d-%b-%Y") --what-if
+           az deployment sub create --location eastus --template-file '.\k8s\main.bicep' --parameters clusterName=${{ inputs.clusterName }} clusterLocation=${{ inputs.clusterLocation }}  --name 'az-k8s-deploy-'$(date +"%d-%b-%Y")
+           
+      - name: Enable additional CI Metrics
+        uses: Azure/cli@v1
+        with:
+          # Specify the script here
+          inlineScript: |
+           clientIdOfSPNOrMsi=`az aks show -g '${{ inputs.clusterName }}-rg' -n ${{ inputs.clusterName }} | jq .addonProfiles.omsagent.identity.objectId | tr -d '"'`
+           clusterResourceId=`az aks show -g '${{ inputs.clusterName }}-rg' -n ${{ inputs.clusterName }} | jq .id | tr -d '"'`
+           az role assignment create --assignee $clientIdOfSPNOrMsi --scope $clusterResourceId --role "Monitoring Metrics Publisher"
+                
