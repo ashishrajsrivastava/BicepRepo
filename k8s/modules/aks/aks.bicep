@@ -17,6 +17,7 @@ resource aksDemo 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'
   aadProfile:{
     adminGroupObjectIDs: [clusterAdminGroupId]
     enableAzureRBAC: true
+    managed: true
   }  
   agentPoolProfiles: [
     {
