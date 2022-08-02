@@ -2,6 +2,7 @@ param sshKeyData string
 param clusterName string
 param logAnalyticsWorkspaceID string
 param location string
+param clusterAdminGroupId string
 resource aksDemo 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' = {
   name: clusterName
   location: location
@@ -13,6 +14,10 @@ resource aksDemo 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'
     type: 'SystemAssigned'
   }
   properties:{
+  aadProfile:{
+    adminGroupObjectIDs: [clusterAdminGroupId]
+    enableAzureRBAC: true
+  }  
   agentPoolProfiles: [
     {
       name: 'agentpool1'
