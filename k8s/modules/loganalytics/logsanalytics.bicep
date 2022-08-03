@@ -6,7 +6,7 @@ resource loganalytics 'Microsoft.OperationalInsights/workspaces@2021-12-01-previ
   location: location
   properties: { 
      sku: {
-       name: 'Free'
+       name: 'PerGB2018'
      }
   }
 }
