@@ -58,5 +58,8 @@ jobs:
         with:
           inlineScript: |
            az aks get-credentials --resource-group '${{ inputs.clusterName }}-rg' --name ${{ inputs.clusterName }}
+      - name: Enable Promemtheus Scrapping
+        run: |
+         kubectl apply -f .\k8s\configs\container-azm-ms-agentconfig.yaml
       
                 
