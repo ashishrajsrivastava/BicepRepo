@@ -48,9 +48,15 @@ jobs:
       - name: Enable additional CI Metrics
         uses: Azure/cli@v1
         with:
-          # Specify the script here
           inlineScript: |
            clientIdOfSPNOrMsi=`az aks show -g '${{ inputs.clusterName }}-rg' -n ${{ inputs.clusterName }} | jq .addonProfiles.omsagent.identity.objectId | tr -d '"'`
            clusterResourceId=`az aks show -g '${{ inputs.clusterName }}-rg' -n ${{ inputs.clusterName }} | jq .id | tr -d '"'`
            az role assignment create --assignee $clientIdOfSPNOrMsi --scope $clusterResourceId --role "Monitoring Metrics Publisher"
+           
+      - name: Login to AKS
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+           az aks get-credentials --resource-group '${{ inputs.clusterName }}-rg' --name ${{ inputs.clusterName }}
+      
                 
