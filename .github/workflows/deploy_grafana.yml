@@ -1,0 +1,30 @@
+name: 'Deploys Azure Managed Grafana'
+
+on:
+  workflow_dispatch:
+    inputs:
+      grafanaInstanceName:
+        description: 'name of the grafana instance'
+        required: true
+        default: 'adp-grafana-demo'
+      grafanaInstanceLocation:
+        description: 'azure region in which grafana to be deployed'
+        required: true
+        default: 'eastus'
+jobs:
+  DeployGrafana:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Deploy bicep
+        uses: Azure/cli@v1
+        with:
+          # Specify the script here
+          inlineScript: |
+           az account set --subscription ${{secrets.AZ_ADP_SUB2_ID}}
+           az deployment sub create --location ${{inputs.grafanaInstanceLocation}}  --template-file '.\central\main.bicep' --parameters grafanaInstanceName=${{ inputs.grafanaInstanceName }} grafanaInstanceLocation=${{inputs.grafanaInstanceLocation}}  --name 'az-grafana-'$(date +"%d-%b-%Y")
