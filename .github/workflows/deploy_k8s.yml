@@ -43,7 +43,7 @@ jobs:
           # Specify the script here
           inlineScript: |
            az account set --subscription ${{secrets.AZ_ADP_SUB2_ID}}
-           az deployment sub create --location eastus --template-file '.\k8s\main.bicep' --parameters clusterName=${{ inputs.clusterName }} clusterLocation=${{ inputs.clusterLocation }} clusterAdminGroupId=${{ secrets.CLUSTER_ADMIN_GROUP_ID }} --name 'az-k8s-deploy-'$(date +"%d-%b-%Y-%H:%M:%S")
+           az deployment sub create --location eastus --template-file '.\k8s\main.bicep' --parameters clusterName=${{ inputs.clusterName }} clusterLocation=${{ inputs.clusterLocation }} clusterAdminGroupId=${{ secrets.CLUSTER_ADMIN_GROUP_ID }} --name 'az-k8s-deploy-'$(date +"%d-%b-%Y-%Hh-%Mm-%Ss")
            
       - name: Enable additional CI Metrics
         uses: Azure/cli@v1
