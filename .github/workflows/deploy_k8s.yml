@@ -67,7 +67,7 @@ jobs:
  
       - name: Enable Promemtheus Scrapping
         run: |
-         kubectl apply -f .\container-azm-ms-agentconfig.yaml
-        working-directory: .\k8s\configs\
+         kubectl apply -f ./container-azm-ms-agentconfig.yaml
+        working-directory: ./k8s/configs
       
                 
