@@ -52,11 +52,22 @@ jobs:
            clientIdOfSPNOrMsi=`az aks show -g '${{ inputs.clusterName }}-rg' -n ${{ inputs.clusterName }} | jq .addonProfiles.omsagent.identity.objectId | tr -d '"'`
            clusterResourceId=`az aks show -g '${{ inputs.clusterName }}-rg' -n ${{ inputs.clusterName }} | jq .id | tr -d '"'`
            az role assignment create --assignee $clientIdOfSPNOrMsi --scope $clusterResourceId --role "Monitoring Metrics Publisher"
-           
-      - name: Login to AKS
-        uses: Azure/cli@v1
+ 
+      - name: Azure Kubernetes set context
+        uses: Azure/aks-set-context@v3
         with:
-          inlineScript: |
-           az aks get-credentials --resource-group '${{ inputs.clusterName }}-rg' --name ${{ inputs.clusterName }}
+          # Resource Group Name
+          resource-group: '${{ inputs.clusterName }}-rg'
+          # AKS Cluster Name
+          cluster-name: ${{ inputs.clusterName }}
+          # AKS Cluster Subscription
+          subscription: ${{secrets.AZ_ADP_SUB2_ID}}
+          # Get cluster admin credentials. Values: true or false
+          admin: 'true'   
+ 
+      - name: Enable Promemtheus Scrapping
+        run: |
+         kubectl apply -f ./container-azm-ms-agentconfig.yaml
+        working-directory: ./k8s/configs
       
                 
