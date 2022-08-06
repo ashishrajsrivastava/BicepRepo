@@ -19,7 +19,7 @@ module deployGrafana 'modules/grafana/grafana.bicep' = {
 }
 
 resource grafanaReaderRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(grafanaInstanceName,subscription().id)
+  name: guid(demoRG.id,subscription().id)
   scope: subscription()
   properties: {
     description: '${grafanaInstanceName} Reader Role Assignment'
