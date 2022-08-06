@@ -23,6 +23,6 @@ resource grafanaReaderRoleAssignment 'Microsoft.Authorization/roleAssignments@20
     description: '${grafanaInstanceName} Reader Role Assignment'
     principalId: deployGrafana.outputs.grafanaInstanceManagedIdentity
     principalType: 'ServicePrincipal'
-    roleDefinitionId: '43d0d8ad-25c7-4714-9337-8ba259a9fe05'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '43d0d8ad-25c7-4714-9337-8ba259a9fe05')
   }
 }

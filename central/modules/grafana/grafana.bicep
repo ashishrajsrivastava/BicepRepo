@@ -22,11 +22,12 @@ resource centralGrafana 'Microsoft.Dashboard/grafana@2022-08-01' = {
 }
 resource grafanaAdminRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(centralGrafana.name,subscription().id,'22926164-76b3-42b3-bc55-97df8dab3e41')
+  scope: centralGrafana
   properties: {
     description: '${centralGrafana.name} Admin Role Assignment'
     principalId: '729ab97b-bde0-4363-a2ec-cabb1728ca1f'
     principalType: 'User'
-    roleDefinitionId: '22926164-76b3-42b3-bc55-97df8dab3e41'
+    roleDefinitionId:  subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '22926164-76b3-42b3-bc55-97df8dab3e41')
   }
 }
 output grafanaInstanceManagedIdentity string = centralGrafana.identity.principalId
