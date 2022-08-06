@@ -1,5 +1,6 @@
 param grafanaInstanceName string = 'adp-grafana-demo-01'
 param grafanaInstanceLocation string = 'eastus'
+param grafanaAdminObjectId string
 
 targetScope = 'subscription'
 
@@ -13,6 +14,7 @@ module deployGrafana 'modules/grafana/grafana.bicep' = {
   params: {
     grafanaLocation: grafanaInstanceLocation
     grafanaResourceName: grafanaInstanceName
+    grafanaAdminUserObjectId:grafanaAdminObjectId
   }
 }
 

@@ -1,5 +1,6 @@
 param grafanaResourceName string
 param grafanaLocation string
+param grafanaAdminUserObjectId string
 
 
 
@@ -25,7 +26,7 @@ resource grafanaAdminRoleAssignment 'Microsoft.Authorization/roleAssignments@202
   scope: centralGrafana
   properties: {
     description: '${centralGrafana.name} Admin Role Assignment'
-    principalId: '729ab97b-bde0-4363-a2ec-cabb1728ca1f'
+    principalId: grafanaAdminUserObjectId
     principalType: 'User'
     roleDefinitionId:  subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '22926164-76b3-42b3-bc55-97df8dab3e41')
   }
