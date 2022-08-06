@@ -1,5 +1,8 @@
 param grafanaResourceName string
 param grafanaLocation string
+
+
+
 resource centralGrafana 'Microsoft.Dashboard/grafana@2022-08-01' = {
   name: grafanaResourceName
    location: grafanaLocation
@@ -17,14 +20,14 @@ resource centralGrafana 'Microsoft.Dashboard/grafana@2022-08-01' = {
      type: 'SystemAssigned'
    }
 }
-
 resource grafanaReaderRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: '${grafanaResourceName}-Reader-role-assignment'
+  name: guid(grafanaResourceName,subscription().id)
+  scope: tenant()
   properties: {
     description: '${grafanaResourceName} Reader Role Assignment'
     principalId: centralGrafana.identity.principalId 
     principalType: 'ServicePrincipal'
-    roleDefinitionId: '${subscription().id}/providers/Microsoft.Authorization/roleDefinitions/43d0d8ad-25c7-4714-9337-8ba259a9fe05'
+    roleDefinitionId: '43d0d8ad-25c7-4714-9337-8ba259a9fe05'
   }
 }
 
