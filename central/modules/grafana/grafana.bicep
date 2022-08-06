@@ -20,7 +20,6 @@ resource centralGrafana 'Microsoft.Dashboard/grafana@2022-08-01' = {
      type: 'SystemAssigned'
    }
 }
-
 resource grafanaAdminRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(centralGrafana.name,subscription().id,'22926164-76b3-42b3-bc55-97df8dab3e41')
   properties: {
@@ -30,6 +29,5 @@ resource grafanaAdminRoleAssignment 'Microsoft.Authorization/roleAssignments@202
     roleDefinitionId: '22926164-76b3-42b3-bc55-97df8dab3e41'
   }
 }
-
 output grafanaInstanceManagedIdentity string = centralGrafana.identity.principalId
-output grafanaInstanceId string = centralGrafana. id
+output grafanaInstanceId string = centralGrafana.id
