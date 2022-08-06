@@ -15,3 +15,14 @@ module deployGrafana 'modules/grafana/grafana.bicep' = {
     grafanaResourceName: grafanaInstanceName
   }
 }
+
+resource grafanaReaderRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(grafanaInstanceName,subscription().id)
+  scope: tenant()
+  properties: {
+    description: '${grafanaInstanceName} Reader Role Assignment'
+    principalId: deployGrafana.outputs.grafanaInstanceManagedIdentity
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: '43d0d8ad-25c7-4714-9337-8ba259a9fe05'
+  }
+}
