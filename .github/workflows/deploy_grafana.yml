@@ -1,4 +1,4 @@
-name: 'Deploys Azure Managed Grafana'
+name: 'Deploy Azure Managed Grafana'
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{secrets.AZURE_CREDENTIALS}}
-      - name: Deploy bicep
+      - name: Deploy Grafana Resources
         uses: Azure/cli@v1
         with:
           # Specify the script here
