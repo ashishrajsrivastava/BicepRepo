@@ -37,9 +37,6 @@ resource aksDemo 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'
    addonProfiles: {
     httpApplicationRouting: {
       enabled: true
-      config: {
-        HTTPApplicationRoutingZoneName: 'adp-aks-demo-01.eastus.aksapp.io'
-      }
     }
     omsagent: {
         enabled: true
@@ -61,3 +58,5 @@ resource aksDemo 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'
    dnsPrefix: 'adp-aks-demo'
   }
 }
+
+output ClusterDNS string = aksDemo.properties.addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
