@@ -35,6 +35,12 @@ resource aksDemo 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'
     networkPlugin:'azure'
    }
    addonProfiles: {
+    httpApplicationRouting: {
+      enabled: true
+      config: {
+        HTTPApplicationRoutingZoneName: 'adp-aks-demo-01.eastus.aksapp.io'
+      }
+    }
     omsagent: {
         enabled: true
         config: {
