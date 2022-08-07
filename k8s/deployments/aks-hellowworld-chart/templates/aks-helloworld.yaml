@@ -22,7 +22,7 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-  - host: aks-helloworld.dce873a5422b487aa78a.eastus.aksapp.io
+  - host: aks-helloworld.{{.Values.dnsHostName}}
     http:
       paths:
       - backend:

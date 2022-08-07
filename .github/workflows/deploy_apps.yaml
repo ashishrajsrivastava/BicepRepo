@@ -1,0 +1,55 @@
+# Deploys apps on Kubernetes Cluster
+
+name: Deploy Apps on K8s
+
+# Controls when the workflow will run
+on:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+   inputs:
+    clusterName:
+      description: 'aks cluster name'
+      required: true
+      default: 'aks-demo-01'
+    dnsHostName:
+      description: 'dns host name for app routing'
+      required: true
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "Deploy"
+  DeployApps:
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Deploy bicep
+        uses: Azure/cli@v1
+        with:
+          # Specify the script here
+          inlineScript: |
+           az account set --subscription ${{secrets.AZ_ADP_SUB2_ID}}
+      - name: Azure Kubernetes set context
+        uses: Azure/aks-set-context@v3
+        with:
+          # Resource Group Name
+          resource-group: '${{ inputs.clusterName }}-rg'
+          # AKS Cluster Name
+          cluster-name: ${{ inputs.clusterName }}
+          # AKS Cluster Subscription
+          subscription: ${{secrets.AZ_ADP_SUB2_ID}}
+          # Get cluster admin credentials. Values: true or false
+          admin: 'true'   
+ 
+      - name: Enable Promemtheus Scrapping
+        run: |
+         kubectl apply -f ./aks-helloworld.yaml
+        working-directory: ./k8s/deployments

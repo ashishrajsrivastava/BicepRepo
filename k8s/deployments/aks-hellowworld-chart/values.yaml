@@ -9,3 +9,4 @@ aksHelloworld:
   replicas: 1
   type: ClusterIP
 kubernetesClusterDomain: cluster.local
+dnsHostName: 8eedaad08d404ac49612.eastus.aksapp.io
