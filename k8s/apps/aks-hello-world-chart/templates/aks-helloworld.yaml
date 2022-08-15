@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "aks-hello-world-chart.fullname" . }}-aks-helloworld
+  labels:
+  {{- include "aks-hello-world-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.aksHelloworld.type }}
+  selector:
+    app: aks-helloworld
+  {{- include "aks-hello-world-chart.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.aksHelloworld.ports | toYaml | nindent 2 -}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "aks-hello-world-chart.fullname" . }}-aks-helloworld
+  labels:
+  {{- include "aks-hello-world-chart.labels" . | nindent 4 }}
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: aks-helloworld.158a1c1c2c914711bd7e.eastus.aksapp.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: '{{ include "aks-hello-world-chart.fullname" . }}-aks-helloworld'
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

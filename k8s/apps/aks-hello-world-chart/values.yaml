@@ -1,0 +1,11 @@
+aksHelloworld:
+  aksHelloworld:
+    image:
+      repository: mcr.microsoft.com/azuredocs/aks-helloworld
+      tag: v1
+  ports:
+  - port: 80
+    targetPort: 0
+  replicas: 1
+  type: ClusterIP
+kubernetesClusterDomain: cluster.local

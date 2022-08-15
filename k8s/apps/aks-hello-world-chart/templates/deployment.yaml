@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "aks-hello-world-chart.fullname" . }}-aks-helloworld
+  labels:
+  {{- include "aks-hello-world-chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.aksHelloworld.replicas }}
+  selector:
+    matchLabels:
+      app: aks-helloworld
+    {{- include "aks-hello-world-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: aks-helloworld
+      {{- include "aks-hello-world-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: TITLE
+          value: Welcome to Azure Kubernetes Service (AKS)
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ .Values.kubernetesClusterDomain }}
+        image: {{ .Values.aksHelloworld.aksHelloworld.image.repository }}:{{ .Values.aksHelloworld.aksHelloworld.image.tag
+          | default .Chart.AppVersion }}
+        name: aks-helloworld
+        ports:
+        - containerPort: 80
+        resources: {}
