@@ -49,7 +49,7 @@ jobs:
           # Get cluster admin credentials. Values: true or false
           admin: 'true'   
  
-      - name: Enable Promemtheus Scrapping
+      - name: K8 hello world deployment
         run: |
-         kubectl apply -f ./aks-helloworld.yaml
-        working-directory: ./k8s/deployments
+         kubectl apply -f ./aks-hello-world.yaml
+        working-directory: ./k8s/apps
