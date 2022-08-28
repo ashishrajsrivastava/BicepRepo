@@ -23,6 +23,4 @@ az ad sp create-for-rbac --name "myApp" --role contributor \
 ```
 **AZ_ADP_SUB2_ID** - Subscription ID where resources will be deployed
 
-**ADMIN_OBJECT_ID** - User object id to be set as grafana administrator during deployment.
-
-**CLUSTER_ADMIN_GROUP_ID** - Azure AD group id to be set as K8s cluster administrator.
+**CLUSTER_ADMIN_GROUP_ID** - Azure AD group id to be set as K8s cluster and grafana administrator.
