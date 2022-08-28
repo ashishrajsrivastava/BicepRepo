@@ -56,7 +56,7 @@ data:
         # Any errors related to prometheus scraping can be found in the KubeMonAgentEvents table in the Log Analytics workspace that the cluster is sending data to.
 
         #Interval specifying how often to scrape for metrics. This is duration of time and can be specified for supporting settings by combining an integer value and time unit as a string value. Valid time units are ns, us (or µs), ms, s, m, h.
-        interval = "1m"
+        interval = "30s"
 
         ## Uncomment the following settings with valid string arrays for prometheus scraping
         #fieldpass = ["metric_to_pass1", "metric_to_pass12"]
@@ -64,14 +64,14 @@ data:
         #fielddrop = ["metric_to_drop"]
 
         # An array of urls to scrape metrics from.
-        # urls = ["http://myurl:9101/metrics"]
+         urls = [$NODE_IP/metrics]
 
         # An array of Kubernetes services to scrape metrics from.
         # kubernetes_services = ["http://my-service-dns.my-namespace:9102/metrics"]
 
         # When monitor_kubernetes_pods = true, replicaset will scrape Kubernetes pods for the following prometheus annotations:
-        # - prometheus.io/scrape: Enable scraping for this pod
-        # - prometheus.io/scheme: If the metrics endpoint is secured then you will need to
+         - prometheus.io/scrape: true
+         - prometheus.io/scheme: https
         #     set this to `https` & most likely set the tls config.
         # - prometheus.io/path: If the metrics path is not /metrics, define it with this annotation.
         # - prometheus.io/port: If port is not 9102 use this annotation
@@ -85,7 +85,7 @@ data:
         ## Label selector to target pods which have the specified label
         ## This will take effect when monitor_kubernetes_pods is set to true
         ## Reference the docs at https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        # kubernetes_label_selector = "env=dev,app=nginx"
+        # kubernetes_label_selector = "app=aks-helloworld"
 
         ## Field selector to target pods which have the specified field
         ## This will take effect when monitor_kubernetes_pods is set to true
