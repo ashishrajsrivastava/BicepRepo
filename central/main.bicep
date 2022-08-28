@@ -14,7 +14,7 @@ module deployGrafana 'modules/grafana/grafana.bicep' = {
   params: {
     grafanaLocation: grafanaInstanceLocation
     grafanaResourceName: grafanaInstanceName
-    grafanaAdminUserObjectId:grafanaAdminObjectId
+    grafanaAdminGroupObjectId: grafanaAdminObjectId
   }
 }
 

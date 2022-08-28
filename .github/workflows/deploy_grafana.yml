@@ -27,4 +27,4 @@ jobs:
           # Specify the script here
           inlineScript: |
            az account set --subscription ${{secrets.AZ_ADP_SUB2_ID}}
-           az deployment sub create --location ${{inputs.grafanaInstanceLocation}}  --template-file '.\central\main.bicep' --parameters grafanaInstanceName=${{ inputs.grafanaInstanceName }} grafanaInstanceLocation=${{inputs.grafanaInstanceLocation}} grafanaAdminObjectId=${{secrets.ADMIN_OBJECT_ID}} --name 'az-grafana-'$(date +"%d-%b-%Y-%Hh-%Mm-%Ss")
+           az deployment sub create --location ${{inputs.grafanaInstanceLocation}}  --template-file '.\central\main.bicep' --parameters grafanaInstanceName=${{ inputs.grafanaInstanceName }} grafanaInstanceLocation=${{inputs.grafanaInstanceLocation}} grafanaAdminObjectId=${{secrets.CLUSTER_ADMIN_GROUP_ID}} --name 'az-grafana-'$(date +"%d-%b-%Y-%Hh-%Mm-%Ss")
