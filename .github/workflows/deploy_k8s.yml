@@ -1,6 +1,6 @@
 # Deploys K8s cluster from K8s main.bicep
 
-name: Deploy K8s
+name: 1 Deploy K8s
 
 # Controls when the workflow will run
 on:
