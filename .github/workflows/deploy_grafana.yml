@@ -1,4 +1,4 @@
-name: 'Deploy Azure Managed Grafana'
+name: '3 Deploy Azure Managed Grafana'
 
 on:
   workflow_dispatch:
