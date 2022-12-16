@@ -1,4 +1,6 @@
 # Deploys apps on Kubernetes Cluster
+# Run az aks show --resource-group myResourceGroup --name myAKSCluster --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table
+# Update host value in k8s/apps/aks-hello-world.yaml 
 
 name: 2 Deploy Apps on K8s
 
