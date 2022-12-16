@@ -1,6 +1,6 @@
 # Deploys apps on Kubernetes Cluster
 
-name: Deploy Apps on K8s
+name: 2 Deploy Apps on K8s
 
 # Controls when the workflow will run
 on:
