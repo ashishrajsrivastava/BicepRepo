@@ -33,12 +33,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - name: Azure Login
-        uses: Azure/login@v1
+        uses: Azure/cli@v1.0.7
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{secrets.AZURE_CREDENTIALS}}
       - name: Deploy bicep
-        uses: Azure/cli@v1
+        uses: Azure/cli@v1.0.7
         with:
           # Specify the script here
           inlineScript: |
@@ -46,7 +46,7 @@ jobs:
            az deployment sub create --location eastus --template-file '.\k8s\main.bicep' --parameters clusterName=${{ inputs.clusterName }} clusterLocation=${{ inputs.clusterLocation }} clusterAdminGroupId=${{ secrets.CLUSTER_ADMIN_GROUP_ID }} --name 'az-k8s-deploy-'$(date +"%d-%b-%Y-%Hh-%Mm-%Ss")
            
       - name: Enable additional CI Metrics
-        uses: Azure/cli@v1
+        uses: Azure/cli@v1.0.7
         with:
           inlineScript: |
            clientIdOfSPNOrMsi=`az aks show -g '${{ inputs.clusterName }}-rg' -n ${{ inputs.clusterName }} | jq .addonProfiles.omsagent.identity.objectId | tr -d '"'`
