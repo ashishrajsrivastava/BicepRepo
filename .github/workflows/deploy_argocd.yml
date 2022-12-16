@@ -1,6 +1,6 @@
 # Deploys argocd to kubernetes cluster
 
-name: Deploy argocd to K8s
+name: 4 Deploy argocd to K8s
 on:
   workflow_dispatch:
    inputs:
